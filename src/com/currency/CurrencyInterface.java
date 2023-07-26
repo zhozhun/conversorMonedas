@@ -24,13 +24,10 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 
 public class CurrencyInterface extends JFrame {
-
-	private JPanel contentPane;
-	private JPanel panelDivisas;
-	private JPanel panelTemperatura;
-	private ButtonGroup radioGroup;
 
 	/**
 	 * Launch the application.
@@ -51,7 +48,25 @@ public class CurrencyInterface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+
+	// Campos de clase para elementos de la interfaz
+	private JPanel contentPane;
+	private JPanel panelDivisas;
+	private JPanel panelTemperatura;
+	private ButtonGroup radioGroup;
+	private JComboBox comboBox;
+	private JTextArea textoConvertir;
+    private JRadioButton rdbtnDolar;
+    private JRadioButton rdbtnEuros;
+    private JRadioButton rdbtnLibras;
+    private JRadioButton rdbtnYen;
+    private JRadioButton rdbtnWon;
+    private JTextArea textoResultado;
+    private JRadioButton rdbtnFahrenheitToCelsius;
+    private JRadioButton rdbtnCelsiusToKelvin;
+
 	public CurrencyInterface() {
+		// 1. Dimensiones de aplicación 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
@@ -59,11 +74,9 @@ public class CurrencyInterface extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		// Establecer el ícono vacío en la ventana
-		this.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(CurrencyInterface.class.getResource("/com/images/5.png")));
-
+		
+		// 2. Elementos de la interfaz
+		// 2.1. Panel principal
 		JPanel panel = new JPanel();
 		panel.setToolTipText("Seleccionar");
 		panel.setBackground(new Color(51, 153, 255));
@@ -71,6 +84,7 @@ public class CurrencyInterface extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
+		// 2.2. Panel ComboBox desplegable
 		JPanel panelComboBox = new JPanel();
 		panelComboBox.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		panelComboBox.setBackground(new Color(51, 153, 255));
@@ -78,6 +92,7 @@ public class CurrencyInterface extends JFrame {
 		panel.add(panelComboBox);
 		panelComboBox.setLayout(null);
 
+		// 2.2.1. ComboBox desplegable
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(10, 11, 280, 22);
 		panelComboBox.add(comboBox);
@@ -85,6 +100,7 @@ public class CurrencyInterface extends JFrame {
 				new DefaultComboBoxModel(new String[] { "Seleccionar", "Convertir divisas", "Convertir temperatura" }));
 		comboBox.setBackground(new Color(0, 153, 255));
 
+		// 2.3. Pánel para escoger divisas a convertir
 		panelDivisas = new JPanel();
 		panelDivisas.setBounds(30, 120, 300, 160);
 		panel.add(panelDivisas);
@@ -92,22 +108,27 @@ public class CurrencyInterface extends JFrame {
 		panelDivisas.setBackground(new Color(51, 153, 255));
 		panelDivisas.setLayout(null);
 
+		// 2.3.1. Opción radial botón dólar
 		JRadioButton rdbtnDolar = new JRadioButton("Convertir Pesos colombianos a Dólar");
 		rdbtnDolar.setBounds(10, 10, 280, 20);
 		panelDivisas.add(rdbtnDolar);
 
+		// 2.3.2. Opción radial botón euros
 		JRadioButton rdbtnEuros = new JRadioButton("Convertir Pesos colombianos a Euros");
 		rdbtnEuros.setBounds(10, 40, 280, 20);
 		panelDivisas.add(rdbtnEuros);
 
+		// 2.3.3. Opción radial botón libras
 		JRadioButton rdbtnLibras = new JRadioButton("Convertir Pesos colombianos a Libras Esterlinas");
 		rdbtnLibras.setBounds(10, 70, 280, 20);
 		panelDivisas.add(rdbtnLibras);
 
+		// 2.3.4. Opción radial botón yen
 		JRadioButton rdbtnYen = new JRadioButton("Convertir Pesos colombianos a Yen Japonés");
 		rdbtnYen.setBounds(10, 100, 280, 20);
 		panelDivisas.add(rdbtnYen);
 
+		// 2.3.5. Opción radial botón won
 		JRadioButton rdbtnWon = new JRadioButton("Convertir Pesos colombianos a Won sur-coreano");
 		rdbtnWon.setBounds(10, 130, 280, 20);
 		panelDivisas.add(rdbtnWon);
@@ -120,8 +141,8 @@ public class CurrencyInterface extends JFrame {
 		radioGroup.add(rdbtnYen);
 		radioGroup.add(rdbtnWon);
 
+		// 2.4. Pánel de divisas para convertir
 		panelDivisas.setVisible(false);
-
 		panelDivisas.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		panelDivisas.setBackground(new Color(51, 153, 255));
 
@@ -141,6 +162,11 @@ public class CurrencyInterface extends JFrame {
 			}
 		});
 
+		// 2.5. Pánel de temperaturas para convertir
+		panelTemperatura.setVisible(false);
+		panelTemperatura.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panelTemperatura.setBackground(new Color(51, 153, 255));
+		
 		panelTemperatura = new JPanel();
 		panelTemperatura.setBounds(30, 120, 300, 80);
 		panel.add(panelTemperatura);
@@ -148,10 +174,12 @@ public class CurrencyInterface extends JFrame {
 		panelTemperatura.setBackground(new Color(51, 153, 255));
 		panelTemperatura.setLayout(null);
 
+		// 2.5.1. Opción radial botón Fahrenheit a Celsius
 		JRadioButton rdbtnFahrenheitToCelsius = new JRadioButton("Convertir Fahrenheit a Celsius");
 		rdbtnFahrenheitToCelsius.setBounds(10, 10, 260, 20);
 		panelTemperatura.add(rdbtnFahrenheitToCelsius);
 
+		// 2.5.2. Opción radial botón Celsius a Kelvin
 		JRadioButton rdbtnCelsiusToKelvin = new JRadioButton("Convertir Celsius a Kelvin");
 		rdbtnCelsiusToKelvin.setBounds(10, 40, 260, 20);
 		panelTemperatura.add(rdbtnCelsiusToKelvin);
@@ -159,126 +187,41 @@ public class CurrencyInterface extends JFrame {
 		radioGroup.add(rdbtnFahrenheitToCelsius);
 		radioGroup.add(rdbtnCelsiusToKelvin);
 
-		panelTemperatura.setVisible(false);
-
-		panelTemperatura.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panelTemperatura.setBackground(new Color(51, 153, 255));
-
+		// 2.6. Ingresar valores a convertir
+		// 2.6.1. Título
 		JLabel lblNumeroAConvertir = new JLabel("Número a convertir:");
 		lblNumeroAConvertir.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNumeroAConvertir.setBounds(30, 330, 200, 14);
 		panel.add(lblNumeroAConvertir);
 
+		// 2.6.2. Número a convertir
 		JTextArea textoConvertir = new JTextArea();
 		textoConvertir.setBounds(30, 350, 300, 22);
 		panel.add(textoConvertir);
+		
+		// 2.7. Botón a convertir
+		JButton btnConvertir = new JButton("Convertir");
+		btnConvertir.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnConvertir.setBounds(30, 399, 300, 23);
+		panel.add(btnConvertir);
 
-		textoConvertir.getDocument().addDocumentListener(new DocumentListener() {
-			public void changedUpdate(DocumentEvent e) {
-				convertirValor();
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				convertirValor();
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				convertirValor();
-			}
-		});
-
+		// 2.8. Imagen
 		JLabel labelImagen = new JLabel("");
 		labelImagen.setIcon(new ImageIcon(CurrencyInterface.class.getResource("/com/images/11.png")));
 		labelImagen.setBounds(480, 20, 250, 250);
 		contentPane.add(labelImagen);
 
-		TextArea textoResultado = new TextArea();
-		textoResultado.setBounds(480, 350, 250, 50);
-		contentPane.add(textoResultado);
-		
-		JLabel lblNumeroConvertido = new JLabel("Número a convertir:");
+		// 2.9. Ingresar valores a convertir
+		// 2.9.1. Título
+		JLabel lblNumeroConvertido = new JLabel("Número convertido:");
 		lblNumeroConvertido.setBounds(480, 330, 200, 14);
 		contentPane.add(lblNumeroConvertido);
 		lblNumeroConvertido.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		// 2.10. Resultado número convertido
+		TextArea textoResultado = new TextArea();
+		textoResultado.setBounds(480, 350, 250, 50);
+		contentPane.add(textoResultado);
 	}
 
-	public void convertirValor() {
-		String opcionSeleccionada = (String) comboBox.getSelectedItem();
-		String valorTexto = textoConvertir.getText();
-		double valor = 0;
-
-		try {
-			valor = Double.parseDouble(valorTexto);
-		} catch (NumberFormatException e) {
-			// Manejar la excepción si el valor ingresado no es numérico
-			// En este caso, podrías mostrar un mensaje de error al usuario
-			return;
-		}
-
-		if (opcionSeleccionada.equals("Convertir divisas")) {
-			String valorConvertido = "";
-			if (rdbtnDolar.isSelected()) {
-				valorConvertido = convertirPesosACambio(valor, "Dólar");
-			} else if (rdbtnEuros.isSelected()) {
-				valorConvertido = convertirPesosACambio(valor, "Euros");
-			} else if (rdbtnLibras.isSelected()) {
-				valorConvertido = convertirPesosACambio(valor, "Libras");
-			} else if (rdbtnYen.isSelected()) {
-				valorConvertido = convertirPesosACambio(valor, "Yen");
-			} else if (rdbtnWon.isSelected()) {
-				valorConvertido = convertirPesosACambio(valor, "Won");
-			}
-			textoResultado.setText(valorConvertido);
-		} else if (opcionSeleccionada.equals("Convertir temperatura")) {
-			String valorConvertido = "";
-			if (rdbtnFahrenheitToCelsius.isSelected()) {
-				valorConvertido = convertirFahrenheitACelsius(valor);
-			} else if (rdbtnCelsiusToKelvin.isSelected()) {
-				valorConvertido = convertirCelsiusAKelvin(valor);
-			}
-			textoResultado.setText(valorConvertido);
-		}
-	}
-
-	private String convertirPesosACambio(double valor, String moneda) {
-		// Aquí implementas la lógica para la conversión de Pesos colombianos a la moneda especificada
-		// Puedes usar tasas de cambio reales o valores fijos para hacer la conversión
-		// Por ejemplo, puedes tener un método que reciba el valor en Pesos y el tipo de moneda
-		// y devuelva el valor convertido en la moneda especificada
-		// A modo de ejemplo, usaré un valor fijo para el Dólar y el Euro:
-		double tasaDolar = 0.00027;
-		double tasaEuro = 0.00023;
-		double tasaLibra = 0.00020;
-		double tasaYen = 0.030;
-		double tasaWon = 0.00031;
-
-		double valorConvertido = 0;
-		if (moneda.equals("Dólar")) {
-			valorConvertido = valor * tasaDolar;
-		} else if (moneda.equals("Euros")) {
-			valorConvertido = valor * tasaEuro;
-		} else if (moneda.equals("Libras")) {
-			valorConvertido = valor * tasaLibra;
-		} else if (moneda.equals("Yen")) {
-			valorConvertido = valor * tasaYen;
-		} else if (moneda.equals("Won")) {
-			valorConvertido = valor * tasaWon;
-		}
-
-		return String.valueOf(valorConvertido);
-	}
-
-	private String convertirFahrenheitACelsius(double valor) {
-		// Aquí implementas la lógica para convertir Fahrenheit a Celsius
-		// La fórmula para la conversión es: (valor - 32) * 5/9
-		double valorConvertido = (valor - 32) * 5 / 9;
-		return String.valueOf(valorConvertido);
-	}
-
-	private String convertirCelsiusAKelvin(double valor) {
-		// Aquí implementas la lógica para convertir Celsius a Kelvin
-		// La fórmula para la conversión es: valor + 273.15
-		double valorConvertido = valor + 273.15;
-		return String.valueOf(valorConvertido);
-	}
 }
